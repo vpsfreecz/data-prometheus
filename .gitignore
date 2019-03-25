@@ -1,0 +1,5 @@
+attic/*
+result*
+.stack-work
+dist
+dist-newstyle
