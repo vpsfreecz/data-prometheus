@@ -2,7 +2,7 @@ name:                data-prometheus
 version:             0.1.0.0
 synopsis:            Prometheus metrics data types and parser
 description:         Prometheus metrics data types and parser
-homepage:            https://github.com/sorki/data-prometheus
+homepage:            https://github.com/vpsfreecz/data-prometheus
 license:             BSD3
 license-file:        LICENSE
 author:              Richard Marko
