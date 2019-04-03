@@ -55,4 +55,4 @@ test-suite data-prometheus-tests
 
 source-repository head
   type:     git
-  location: https://github.com/sorki/data-prometheus
+  location: https://github.com/vpsfreecz/data-prometheus
