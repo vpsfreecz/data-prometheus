@@ -44,6 +44,7 @@ test-suite data-prometheus-tests
   hs-source-dirs:      test
   main-is:             Spec.hs
   other-modules:       ParseSpec
+                       PrettySpec
                        SpecHelper
   build-depends:       base >= 4.7 && < 5
                      , data-prometheus
