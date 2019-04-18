@@ -28,6 +28,7 @@ main = do
 
 ```haskell
 import Data.Prometheus
+import Data.Function ((&))
 
 main :: IO ()
 main = do
