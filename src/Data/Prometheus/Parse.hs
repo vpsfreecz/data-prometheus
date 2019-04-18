@@ -10,9 +10,10 @@ import Data.Attoparsec.ByteString.Char8
 import Data.Prometheus.Types
 
 parseMetrics :: Parser PromMetrics
-parseMetrics = M.fromList . concat <$> many1 parseMetric <* endOfInput
+parseMetrics = M.fromList . concat <$>
+  many1 parseMetric <* many parseError <* endOfInput
 
---parseMetric :: Parser PromMetrics
+parseMetric :: Parser [(MetricId, Metric)]
 parseMetric = do
   (name, help, typ) <- parseMeta
   lm <- case typ of
@@ -100,3 +101,13 @@ parseLabel = do
   char '='
   v <- char '"' *> takeWhile (\x -> x /= '"') <* char '"'
   return (l, v)
+
+parseError :: Parser ByteString
+parseError = do
+  "# ERROR "
+  err <- eol
+  endOfLine
+  return err
+  where
+    eol :: Parser ByteString
+    eol = takeWhile (/= '\n')
