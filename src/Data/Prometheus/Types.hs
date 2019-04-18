@@ -1,14 +1,14 @@
 module Data.Prometheus.Types where
 
 import Data.Map (Map)
-import qualified Data.ByteString.Char8 as B
+import Data.ByteString (ByteString)
 
-type Labels = Map B.ByteString B.ByteString
+type Labels = Map ByteString ByteString
 type PromMetrics = Map MetricId Metric
 
 data MetricId = MetricId
-  { name :: B.ByteString
-  , help :: B.ByteString
+  { name   :: ByteString
+  , help   :: ByteString
   , labels :: Labels }
   deriving (Eq, Ord, Show)
 
@@ -22,7 +22,7 @@ data Metric
     }
   | Histogram
     { histBuckets :: Map Double Double
-    , histSum :: Double
-    , histCount :: Double
+    , histSum     :: Double
+    , histCount   :: Double
     }
   deriving (Eq, Ord, Show)
