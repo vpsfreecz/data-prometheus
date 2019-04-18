@@ -8,9 +8,10 @@ module Data.Prometheus
   , module T
   ) where
 
-import Data.Prometheus.Parse as T
+import Data.Prometheus.Monad  as T
+import Data.Prometheus.Parse  as T
 import Data.Prometheus.Pretty as T
-import Data.Prometheus.Types as T
+import Data.Prometheus.Types  as T
 import Data.Attoparsec.ByteString.Char8
 
 import qualified Data.ByteString.Char8 as B

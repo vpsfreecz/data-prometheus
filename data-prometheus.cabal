@@ -16,6 +16,7 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:     Data.Prometheus
+                     , Data.Prometheus.Monad
                      , Data.Prometheus.Parse
                      , Data.Prometheus.Pretty
                      , Data.Prometheus.Types
@@ -23,6 +24,7 @@ library
                      , bytestring
                      , attoparsec
                      , containers
+                     , transformers
                      , wreq
   default-language:    Haskell2010
 
@@ -45,6 +47,7 @@ test-suite data-prometheus-tests
   main-is:             Spec.hs
   other-modules:       ParseSpec
                        PrettySpec
+                       MonadSpec
                        SpecHelper
   build-depends:       base >= 4.7 && < 5
                      , data-prometheus
