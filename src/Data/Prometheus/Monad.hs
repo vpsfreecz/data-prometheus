@@ -13,19 +13,21 @@ data MetricState = MetricState
   , errors  :: [B.ByteString]
   }
 
+type MetricsT m = StateT MetricState m ()
+
 -- | Evaluate metrics into `MetricState`
-execMetrics :: Monad m => StateT MetricState m () -> m MetricState
+execMetrics :: Monad m => MetricsT m -> m MetricState
 execMetrics = flip execStateT (MetricState M.empty [])
 
 -- | Evaluate metrics and return pretty-printed output
 -- as expected by textfile collector
-runMetrics :: Monad m => StateT MetricState m () -> m B.ByteString
+runMetrics :: Monad m => MetricsT m -> m B.ByteString
 runMetrics x = do
   ms <- execMetrics x
   return $ B.concat [ prettyMetrics (metrics ms),  B.unlines (errors ms) ]
 
 -- | Add metric with value
-addMetric :: Monad m => MetricId -> Metric -> StateT MetricState m ()
+addMetric :: Monad m => MetricId -> Metric -> MetricsT m
 addMetric mId mData = modify $ \ms -> ms { metrics = M.insert mId mData (metrics ms) }
 
 -- | Log error message
