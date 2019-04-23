@@ -63,3 +63,16 @@ label k v m = m { labels = M.insert k v (labels m) }
 eitherExitCode :: Either a b -> Integer
 eitherExitCode (Right _) = 0
 eitherExitCode (Left _) = 1
+
+-- | Convert Either to Gauge, 0 meaning Right
+eitherToGauge :: Either a b -> Metric
+eitherToGauge = Gauge . fromIntegral . eitherExitCode
+
+-- | Convert Bool to Gauge, 0 meaning True
+goodWhen :: Bool -> Metric
+goodWhen True = Gauge 0
+goodWhen False = Gauge 0
+
+-- | Convert Enum to Gauge, 0 meaning Ok status
+enumToGauge :: Enum a => a -> Metric
+enumToGauge = Gauge . fromIntegral . fromEnum
