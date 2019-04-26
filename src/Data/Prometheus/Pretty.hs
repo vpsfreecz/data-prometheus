@@ -9,7 +9,12 @@ import qualified Data.Map as M
 import Data.Prometheus.Types
 
 prettyMetrics :: PromMetrics -> B.ByteString
-prettyMetrics = B.concat . M.elems . M.mapWithKey prettyMetric
+prettyMetrics = B.concat . M.elems . snd . M.mapAccumWithKey helpTypeOnce ""
+
+helpTypeOnce prevName mid@MetricId{..} x | prevName /= name =
+  (name, prettyMetric mid x)
+helpTypeOnce prevName mid@MetricId{..} x | otherwise        =
+  (name, prettyMetricShort mid x `B.append` "\n")
 
 prettyMetric :: MetricId -> Metric -> B.ByteString
 prettyMetric mId mData = B.unlines [
