@@ -1,5 +1,5 @@
 { mkDerivation, attoparsec, base, bytestring, containers, hspec
-, lens, raw-strings-qq, stdenv, wreq, zlib
+, raw-strings-qq, stdenv, transformers
 }:
 mkDerivation {
   pname = "data-prometheus";
@@ -8,13 +8,12 @@ mkDerivation {
   isLibrary = true;
   isExecutable = true;
   libraryHaskellDepends = [
-    attoparsec base bytestring containers wreq
+    attoparsec base bytestring containers transformers
   ];
-  executableHaskellDepends = [
-    attoparsec base bytestring lens wreq zlib
+  testHaskellDepends = [
+    attoparsec base containers hspec raw-strings-qq
   ];
-  testHaskellDepends = [ base hspec raw-strings-qq ];
-  homepage = "https://github.com/sorki/data-prometheus";
+  homepage = "https://github.com/vpsfreecz/data-prometheus";
   description = "Prometheus metrics data types and parser";
   license = stdenv.lib.licenses.bsd3;
 }
